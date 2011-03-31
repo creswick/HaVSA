@@ -4,8 +4,8 @@ module AI.VersionSpaces where
 import Control.Arrow ((***))
 
 data BSR a i o = EmptyBSR
-               | BSR { storage :: a 
-                     , narrow :: BSR a i o -> i -> o -> BSR a i o 
+               | BSR { storage :: a
+                     , narrow :: BSR a i o -> i -> o -> BSR a i o
                      , hypos  :: BSR a i o -> [i -> o]
                      }
 

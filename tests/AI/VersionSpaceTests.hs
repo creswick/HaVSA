@@ -25,9 +25,13 @@ test_emptyUnion2 = length (hypotheses constIdVS) @=? length (hypotheses $ union 
 test_emptyUnion3 = length (hypotheses constIdVS) @=? length (hypotheses $ union constIdVS Empty)
 
 -- | Check that the join operator on Empty version spaces behaves as expected.
-test_emptyJoin1 = length [] @=? length (hypotheses $ union Empty constIdVS)
-test_emptyJoin2 = length [] @=? length (hypotheses $ union constIdVS Empty)
+test_emptyJoin1 = length [] @=? length (hypotheses $ join emptyVS constIdVS)
+test_emptyJoin2 = length [] @=? length (hypotheses $ join constIdVS emptyVS)
 
+
+-- | This is necessary to make the type checker happy in some cases.
+emptyVS :: VersionSpace Int Int
+emptyVS = Empty
 
 -- | Version space that always returns @id@
 constIdVS :: VersionSpace Int Int

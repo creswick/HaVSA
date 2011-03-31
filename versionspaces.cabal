@@ -1,28 +1,31 @@
 -- cabal configure --prefix=$HOME --user
 -- cabal build
-name:                VersionSpaces
-version:             0.0
+name:                HaVSA
+version:             0.1
 synopsis:            <Project description>
 description:         <Project description>
 category:            AI
-license:             OtherLicense
+license:             BSD3
 License-file:        LICENSE
 author:              Rogan Creswick
 maintainer:          creswick@gmail.com
 build-depends:       base
-Cabal-Version:       >=1.2	 
+Cabal-Version:       >=1.8.0.6
 build-type:          Simple
 
-
 Library
-   Build-depends:	    base, logict
-   Exposed-modules:   AI.VersionSpaces
-   ghc-options:       -Wall -O
-   hs-source-dirs:    src
+   Build-depends:    base >= 4 && < 6,
+                     logict >= 0.4.2 && < 0.5
 
--- Executable tests
---   Main-Is:           AI/Tests.hs
---
---   Build-Depends:     QuickCheck >= 1.1 && < 2
---   ghc-options:       -Wall -O
---   hs-source-dirs:    src
+   Exposed-modules:  AI.VersionSpaces
+   ghc-options:      -Wall -O
+   hs-source-dirs:   src
+
+Executable tests
+  Main-Is:           AI/Tests.hs
+  hs-source-dirs:    tests,
+                     src
+
+  Build-Depends:     QuickCheck >= 1.1 && < 2
+  ghc-options:       -Wall -O
+

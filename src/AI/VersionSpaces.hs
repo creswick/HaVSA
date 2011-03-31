@@ -48,12 +48,12 @@ showVS (Tr _ _ _ vs)   = "[TR "++showVS vs++"]"
 -- short-circuited by collapsing parts of the hierarchy before
 -- recursing.
 train :: (Eq o) => VersionSpace i o -> i -> o -> VersionSpace i o
-train Empty                _ _       = Empty
+train Empty  _ _ = Empty
 train (VS b) i o = case (narrow b) b i o of
   EmptyBSR -> Empty
   bsr      -> VS bsr
-  
--- | The join of an empty VS with any other VS is empty. 
+
+-- | The join of an empty VS with any other VS is empty.
 train (Join Empty _)    _       _       = Empty
 train (Join _ Empty)    _       _       = Empty
 train (Join vs1 vs2)   (i1,i2) (o1, o2) = join (train vs1 i1 o1) (train vs2 i2 o2)
@@ -64,7 +64,7 @@ train (Union Empty vs2) _       _       = vs2
 train (Union vs1 vs2)   i       o       = union (train vs1 i o) (train vs2 i o)
 
 -- | Any transform on an empty VS is just an empty VS.
-train (Tr _ _ _ Empty)  _       _       = Empty
+train (Tr _ _ _ Empty)           _ _  = Empty
 train (Tr tin tout fout innerVS) i o  = tr tin tout fout trainedVS
     where trainedVS = train innerVS (tin i) (tout o)
 

@@ -2,15 +2,15 @@
 module AI.VersionSpaceTests where
 
 import AI.VersionSpaces
-import AI.Examples
 
-import Test.Framework                      (defaultMain, testGroup)
+import Test.Framework                 (Test, testGroup)
 import Test.Framework.Providers.HUnit
 -- import Test.Framework.Providers.QuickCheck (testProperty)
 
 -- import Test.QuickCheck
-import Test.HUnit
+import Test.HUnit ( (@=?), Assertion )
 
+tests :: Test
 tests = testGroup "VersionSpace tests" [
           testCase "Union empties" test_emptyUnion1
         , testCase "Union Empty foo == id" test_emptyUnion2
@@ -20,12 +20,18 @@ tests = testGroup "VersionSpace tests" [
         ]
 
 -- | Check that the union operator on Empty version spaces behaves as expected.
+test_emptyUnion1 :: Assertion
 test_emptyUnion1 = length []                     @=? length (hypotheses $ union Empty Empty)
+test_emptyUnion2 :: Assertion
 test_emptyUnion2 = length (hypotheses constIdVS) @=? length (hypotheses $ union Empty constIdVS)
+test_emptyUnion3 :: Assertion
 test_emptyUnion3 = length (hypotheses constIdVS) @=? length (hypotheses $ union constIdVS Empty)
 
 -- | Check that the join operator on Empty version spaces behaves as expected.
+test_emptyJoin1 :: Assertion
 test_emptyJoin1 = length [] @=? length (hypotheses $ join emptyVS constIdVS)
+
+test_emptyJoin2 :: Assertion
 test_emptyJoin2 = length [] @=? length (hypotheses $ join constIdVS emptyVS)
 
 

@@ -16,11 +16,8 @@ import Test.Framework.Providers.QuickCheck (testProperty)
 
 import Test.QuickCheck
 
-main :: IO ()
-main = defaultMain tests
-
-
-tests = [ testGroup "absMinVal properties" [
+tests = testGroup "LogicHelpers tests" [
+         testGroup "absMinVal properties" [
                           testProperty "same sign GT" prop_absMinVal_sameSignGt
                         , testProperty "same sign LT" prop_absMinVal_sameSignLt
                         , testProperty "zero-span" prop_absMinVal_span0

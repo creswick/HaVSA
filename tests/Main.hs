@@ -1,10 +1,11 @@
 module Main where
 
-import AI.Tests       ( tests )
+import qualified AI.Tests as LogicHelpers
+import qualified AI.VersionSpaceTests as VersionSpaces
 
 import Test.Framework ( defaultMain )
 
-
-
 main :: IO ()
-main = defaultMain tests
+main = defaultMain [ LogicHelpers.tests
+                   , VersionSpaces.tests
+                   ]

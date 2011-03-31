@@ -35,7 +35,7 @@ data VersionSpace i o where
   Union :: VersionSpace a b -> VersionSpace a b -> VersionSpace a b
   Tr :: (Eq b) => (i -> a) -> (o -> b) -> (b -> o) -> VersionSpace a b -> VersionSpace i o
 
-showVS :: VersionSpace i o -> String 
+showVS :: VersionSpace i o -> String
 showVS Empty           = "Empty"
 showVS (VS hs)         = showBSR hs
 showVS (Union vs1 vs2) = "["++showVS vs1++" U "++showVS vs2++"]"

@@ -29,8 +29,10 @@ Executable tests
   Build-Depends:     base >= 4 && < 6,
                      logict >= 0.4.2 && < 0.5,
                      QuickCheck >= 1.1 && < 2,
+                     HUnit >= 1.2.2 && < 1.2.3,
                      test-framework >= 0.3.3 && < 0.4,
-                     test-framework-quickcheck >= 0.2.7 && < 0.3
+                     test-framework-quickcheck >= 0.2.7 && < 0.3,
+                     test-framework-hunit >= 0.2.6 && < 0.3
 
   ghc-options:       -Wall -O
 

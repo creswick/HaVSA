@@ -22,8 +22,10 @@ tests = testGroup "VersionSpace tests" [
 -- | Check that the union operator on Empty version spaces behaves as expected.
 test_emptyUnion1 :: Assertion
 test_emptyUnion1 = length []                     @=? length (hypotheses $ union Empty Empty)
+
 test_emptyUnion2 :: Assertion
 test_emptyUnion2 = length (hypotheses constIdVS) @=? length (hypotheses $ union Empty constIdVS)
+
 test_emptyUnion3 :: Assertion
 test_emptyUnion3 = length (hypotheses constIdVS) @=? length (hypotheses $ union constIdVS Empty)
 
@@ -33,6 +35,7 @@ test_emptyJoin1 = length [] @=? length (hypotheses $ join emptyVS constIdVS)
 
 test_emptyJoin2 :: Assertion
 test_emptyJoin2 = length [] @=? length (hypotheses $ join constIdVS emptyVS)
+
 
 
 -- | This is necessary to make the type checker happy in some cases.

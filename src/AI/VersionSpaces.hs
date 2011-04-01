@@ -3,38 +3,65 @@ module AI.VersionSpaces where
 
 import Control.Arrow ((***))
 
+-- | Representation of a traditional version space, as described by
+-- Hirsh: Hirsh, H.: 1991, 'Theoretical Underpinnings of Version
+-- Spaces'. In: Proceedings of the Twelfth International Joint
+-- Conference on Artificial Intelligence. pp.  665–670.
 data BSR a i o = EmptyBSR
                | BSR { storage :: a
                      , narrow :: BSR a i o -> i -> o -> BSR a i o
                      , hypos  :: BSR a i o -> [i -> o]
                      }
 
+-- | Renders a BSR to a string to show whether the BSR is empty or
+-- not.  Additional details place undesirable restrictions on the
+-- state storage.
 showBSR :: BSR a i o -> String
-showBSR EmptyBSR     = "Empty"
-showBSR (BSR st _ _) = "non-empty"
+showBSR EmptyBSR    = "Empty"
+showBSR (BSR _ _ _) = "non-empty"
 
+-- | Union two versionspaces, generating a third.
 union :: VersionSpace a b -> VersionSpace a b -> VersionSpace a b
 union Empty y = y
 union x Empty = x
 union x y     = Union x y
 
+-- | Join two versionspaces, generating a third.
 join :: (Eq b, Eq d) => VersionSpace a b -> VersionSpace c d -> VersionSpace (a, c) (b, d)
 join Empty _ = Empty
 join _ Empty = Empty
 join x y     = Join x y
 
+-- | Transform a version space to mutate the input and/or output types.
+-- Transforms require that three functions be specified:
+--
+--  [@i -> a@] Transform the input of the resulting version space to the input of the initial versionspace.
+--
+--  [@o -> b@] Transform the output of the initial versionspace into the output of the resulting versionspace.
+--
+--  [@b -> o@] Transform the output of the /resulting/ versionspace
+--  into the output of the /initial/ versionspace.  This is necessary
+--  to support training: the training examples will be in terms of the
+--  resulting versionspace, so the output must be transformed back
+--  into the terms of the initial versionspace.
 tr :: (Eq b) => (i -> a) -> (o -> b) -> (b -> o) -> VersionSpace a b -> VersionSpace i o
 tr _   _    _    Empty = Empty
 tr tin tout fout vs    = Tr tin tout fout vs
 
 -- | Version Space algebraic operators:
 data VersionSpace i o where
+  -- | The empty, or collapsed versionspace.
   Empty :: VersionSpace i o
+  -- | A basic leaf versionspace, this just wraps a 'BSR'
   VS :: BSR a i o -> VersionSpace i o
+  -- | The Join of two versionspaces.  This should not be used directly, rather, use the 'join' function.
   Join :: (Eq d, Eq b) => VersionSpace a b -> VersionSpace c d -> VersionSpace (a, c) (b, d)
+  -- | The union of two versionspaces.  This should not be used directly, rather, use the 'union' function.
   Union :: VersionSpace a b -> VersionSpace a b -> VersionSpace a b
+  -- | The transform of two versionspaces.  This should not be used directly, rather, use the 'tr' function.
   Tr :: (Eq b) => (i -> a) -> (o -> b) -> (b -> o) -> VersionSpace a b -> VersionSpace i o
 
+-- | Serializes a versionspace to a human-readable string, for certain values of 'human'.
 showVS :: VersionSpace i o -> String
 showVS Empty           = "Empty"
 showVS (VS hs)         = showBSR hs

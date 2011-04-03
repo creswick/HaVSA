@@ -28,19 +28,24 @@ tests = testGroup "LogicHelpers tests" [
                         ]
         ]
 
+prop_absMinVal_sameSignGt :: Int -> Int -> Property
 prop_absMinVal_sameSignGt x y =
   x > 0 && y > 0 ==> absMinVal x y == min x y
 
+prop_absMinVal_sameSignLt :: Int -> Int -> Property
 prop_absMinVal_sameSignLt x y =
   x < 0 && y < 0 ==> absMinVal x y == max x y
 
+prop_absMinVal_span0 :: Int -> Int -> Property
 prop_absMinVal_span0 x y =
   signum x /= signum y ==> absMinVal x y == 0
 
+prop_fairInts_associate :: Int -> Int -> Property
 prop_fairInts_associate x y =
   abs (x - y) < 10000 ==> -- stop the tests before they get huge
    (observeAll $ fairInts x y) == (observeAll $ fairInts y x)
 
+prop_fairInts_unique :: Int -> Int -> Property
 prop_fairInts_unique x y =
   abs (x - y) < 10000 ==> -- stop the tests before they get huge
   let ints = (observeAll $ fairInts x y)

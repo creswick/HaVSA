@@ -1,7 +1,7 @@
 -- cabal configure --prefix=$HOME --user
 -- cabal build
 name:                HaVSA
-version:             0.1
+version:             0.1.0.1
 synopsis:            <Project description>
 description:         <Project description>
 category:            AI
@@ -17,6 +17,9 @@ Library
                      logict >= 0.4.2 && < 0.5
 
    Exposed-modules:  AI.VersionSpaces
+   Other-modules:    AI.Examples,
+                     AI.LogicHelpers
+
    ghc-options:      -Wall
    hs-source-dirs:   src
 
@@ -24,6 +27,8 @@ Executable tests
   Main-Is:           Main.hs
   hs-source-dirs:    tests,
                      src
+  Other-modules:     AI.Tests,
+                     AI.VersionSpaceTests
 
   Build-Depends:     base >= 4 && < 6,
                      logict >= 0.4.2 && < 0.5,

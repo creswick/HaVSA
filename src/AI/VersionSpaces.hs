@@ -50,15 +50,15 @@ tr tin tout fout vs    = Tr tin tout fout vs
 
 -- | Version Space algebraic operators:
 data VersionSpace i o where
-  -- | The empty, or collapsed versionspace.
+  -- The empty, or collapsed versionspace.
   Empty :: VersionSpace i o
-  -- | A basic leaf versionspace, this just wraps a 'BSR'
+  -- A basic leaf versionspace, this just wraps a 'BSR'
   VS :: BSR a i o -> VersionSpace i o
-  -- | The Join of two versionspaces.  This should not be used directly, rather, use the 'join' function.
+  -- The Join of two versionspaces.  This should not be used directly, rather, use the 'join' function.
   Join :: (Eq d, Eq b) => VersionSpace a b -> VersionSpace c d -> VersionSpace (a, c) (b, d)
-  -- | The union of two versionspaces.  This should not be used directly, rather, use the 'union' function.
+  -- The union of two versionspaces.  This should not be used directly, rather, use the 'union' function.
   Union :: VersionSpace a b -> VersionSpace a b -> VersionSpace a b
-  -- | The transform of two versionspaces.  This should not be used directly, rather, use the 'tr' function.
+  -- The transform of two versionspaces.  This should not be used directly, rather, use the 'tr' function.
   Tr :: (Eq b) => (i -> a) -> (o -> b) -> (b -> o) -> VersionSpace a b -> VersionSpace i o
 
 -- | Serializes a versionspace to a human-readable string, for certain values of 'human'.

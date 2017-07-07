@@ -11,14 +11,13 @@ Algebra Machine Learning technique described in Tessa Lau's PhD thesis
 
 ## Publications about Version Space Algebra
 
-A number of Version Spaces papers that I've come across are listed here:
-   * http://www.citeulike.org/user/creswick/tag/version_spaces
+A number of Version Spaces papers that I've come across are listed (here)[http://www.citeulike.org/user/creswick/tag/version_spaces]
 
 # Contributors
 
-HaVSA was created by [http://blog.ciscavate.org Rogan Creswick]
+HaVSA was created by (Rogan Creswick)[http://blog.ciscavate.org]
 
 # Other Implementations
 
 If you're looking for an implementation in Java, you should check out
-[http://code.google.com/p/jversionspaces JVersionSpaces]
+(JVersionSpaces)[http://code.google.com/p/jversionspaces]
